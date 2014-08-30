@@ -3,6 +3,15 @@ var path = require('path');
 var mongo = require('mongoskin');
 var router = express.Router();
 
+var unicode2ascii = function(str) {
+	return str.
+	replace(/ā|Ā|á|Á|ǎ|Ǎ|à|À/, 'a').
+	replace(/ē|Ē|é|É|ě|Ě|è|È/, 'e').
+	replace(/ī|Ī|í|Í|ǐ|Ǐ|ì|Ì/, 'i').
+	replace(/ō|Ō|ó|Ó|ǒ|Ǒ|ò|Ò/, 'o').
+	replace(/ū|ǖ|Ū|Ǖ|ú|ǘ|Ú|Ǘ|ǔ|ǚ|Ǔ|Ǚ|ù|ǜ|Ù|Ǜ/, 'u');
+};
+
 router.get('/', function(req, res) {
 	var db = req.db;
 	var query = {
@@ -73,6 +82,7 @@ router.put('/:char', function(req, res) {
 	req.body._date = new Date();
 	req.body._random = Math.random();
 	req.body.char = req.params.char;
+	req.body.latin = unicode2ascii(req.body.pinyin);
 	var query = {
 		char: req.params.char
 	};
