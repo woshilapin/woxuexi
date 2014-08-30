@@ -30,14 +30,3 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 		};
 		$scope.updateCharList();
 }]);
-woxuexiApp.directive('myDate', ['dateFilter', function(dateFilter) {
-	return {
-		"require": "ngModel",
-		"restrict": "A",
-		"link": function(scope, element, attr, controller) {
-			controller.$formatters.push(function (modelValue) {
-				return dateFilter(modelValue, 'yyyy-MM-dd');
-			});
-		}
-	};
-}]);
