@@ -30,6 +30,33 @@ router.get('/', function(req, res) {
 	});
 });
 
+router.get('/search', function(req, res) {
+	var db = req.db;
+	var query = {
+		$query: {},
+		$orderby: {
+			pinyin: 1
+		}
+	};
+	if(req.query.pinyin !== undefined) {
+		query.$query.pinyin = new RegExp(req.query.pinyin, 'i');
+	}
+	if(req.query.latin !== undefined) {
+		query.$query.latin = new RegExp(req.query.latin, 'i');
+	}
+	if(req.query.accent !== undefined) {
+		query.$query.accent = parseInt(req.query.accent);
+	}
+	db.collection('chars').find(query).toArray(function(err, items) {
+		if(err === null) {
+			res.status(200).json(items);
+		} else {
+			var message = {msg: err};
+			res.status(404).send(message);
+		}
+	});
+});
+
 router.get('/random', function(req, res) {
 	var db = req.db;
 	var random = Math.random();
