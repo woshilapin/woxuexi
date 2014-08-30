@@ -17,17 +17,30 @@ router.get('/', function(req, res) {
 
 router.get('/random', function(req, res) {
 	var db = req.db;
+	var random = Math.random();
 	var query = {
 		$query: {
-			char: req.params.char
+			_random: {
+				$gte: random
+			}
+		},
+		$orderby: {
+			_random: 1
 		}
 	};
-	db.collection('chars').find(query).toArray(function(err, items) {
-		if(err === null) {
-			res.status(200).json(items);
-		} else {
-			var message = {msg: err};
-			res.status(404).send(message);
+	db.collection('chars').findOne(query, function(err, result) {
+		if(err === null && result !== null) {
+			res.status(200).json(result);
+		} else if(err === null && result === null) {
+			query.$query._random = {$lte: random};
+			db.collection('chars').findOne(query, function(err, result) {
+				if(err === null && result !== null) {
+					res.status(200).json(result);
+				} else {
+					var message = {msg: err};
+					res.status(404).send(message);
+				}
+			});
 		}
 	});
 });
@@ -39,9 +52,9 @@ router.get('/:char', function(req, res) {
 			char: req.params.char
 		}
 	};
-	db.collection('chars').find(query).toArray(function(err, items) {
+	db.collection('chars').findOne(query, function(err, result) {
 		if(err === null) {
-			res.status(200).json(items);
+			res.status(200).json(result);
 		} else {
 			var message = {msg: err};
 			res.status(404).send(message);
