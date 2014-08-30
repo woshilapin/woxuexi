@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	.container-fluid
+		.row
+			.col-xs-12.col-md-4.wxx-charlist(data-ng-controller='charsController')
+				input.form-control(type='text',placeholder='search...',data-ng-model='search',data-ng-change='updateCharList()')
+				table.table.table-striped
+					thead
+						tr
+							th.col-md-2.text-center= 'Char'
+							th.col-md-10= 'Precisions'
+					tbody
+						tr(data-ng-repeat='char in chars')
+							td.text-center
+								span.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{char.char}}'
+							td
+								span.wxx-pinyin= '{{char.pinyin}}'
+								span(data-ng-repeat='translation in char.translations.fr')= ' {{translation}}'

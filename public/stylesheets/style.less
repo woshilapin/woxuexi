@@ -1,8 +1,32 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import "../../bower_components/bootstrap/less/bootstrap.less";
+@import "../../bower_components/font-awesome/less/font-awesome.less";
+
+.wxx-char {
+	font-size: 120%;
 }
 
-a {
-  color: #00B7FF;
+.wxx-pinyin {
+	color: gray;
+}
+.wxx-pinyin:before {
+	content: "[";
+}
+.wxx-pinyin:after {
+	content: "]";
+}
+
+.wxx-accent-0 {
+	color: lighten(gray,20%);
+}
+.wxx-accent-1 {
+	color: lighten(magenta,20%);
+}
+.wxx-accent-2 {
+	color: lighten(blue,20%);
+}
+.wxx-accent-3 {
+	color: lighten(red,20%);
+}
+.wxx-accent-4 {
+	color: lighten(green,20%);
 }

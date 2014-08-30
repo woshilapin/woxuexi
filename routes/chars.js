@@ -53,6 +53,7 @@ router.put('/:char', function(req, res) {
 	var db = req.db;
 	req.body._date = new Date();
 	req.body._random = Math.random();
+	req.body.char = req.params.char;
 	var query = {
 		char: req.params.char
 	};
