@@ -12,10 +12,14 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 		var cv = undefined;
 		$scope.updateCharList = function(next) {
 			var uri = 'chars';
+			if($scope.search !== undefined && $scope.search !== '') {
+				uri += '/search?latin=' + $scope.search;
+			}
 			var getRequest = {
 				method: 'GET',
 				url: uri
 			};
+			console.log(uri);
 			$http(getRequest).
 			success(function(data, status, header, config) {
 				if(status === 200) {
