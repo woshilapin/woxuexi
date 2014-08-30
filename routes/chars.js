@@ -5,7 +5,13 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
 	var db = req.db;
-	db.collection('chars').find().toArray(function(err, items) {
+	var query = {
+		$query: {},
+		$orderby: {
+			pinyin: 1
+		}
+	};
+	db.collection('chars').find(query).toArray(function(err, items) {
 		if(err === null) {
 			res.status(200).json(items);
 		} else {
