@@ -6,7 +6,7 @@ block content
 			#wxx-titlebar
 				h1= title
 		.row(data-ng-controller='charsController')
-			#wxx-charlist
+			#wxx-charlist(data-ng-class='(char!==undefined)?"hidden-xs":""')
 				input.form-control(type='text',placeholder='search...',data-ng-model='search',data-ng-change='updateCharList()')
 				table.table.table-striped.table-hover
 					thead
@@ -21,6 +21,8 @@ block content
 								span.wxx-pinyin= '{{ char.latin | pinyinFilter:char.accent }}'
 								span(data-ng-repeat='translation in char.translations.fr')= ' {{ translation }}'
 			#wxx-thechar(data-ng-hide='char===undefined')
+				button#wxx-tolist.visible-xs(data-ng-click='char=undefined')
+					i.fa.fa-list
 				form.form-horizontal
 					#wxx-chardisplay
 						.panel(data-ng-class='"wxx-accent-" + char.accent')
@@ -60,9 +62,9 @@ block content
 												strong= '{{ num | accentFilter }}'
 										.btn-group
 											button.btn.btn-default(data-ng-click='edit.accent=false')
-												i.fa.fa-fw.fa-check
+												i.fa.fa-check
 											button.btn.btn-default
-												i.fa.fa-fw.fa-times
+												i.fa.fa-times
 					#wxx-chartranslations
 						label.control-label= 'Translations'
 						ol
