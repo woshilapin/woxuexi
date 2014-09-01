@@ -3,13 +3,13 @@ var path = require('path');
 var mongo = require('mongoskin');
 var router = express.Router();
 
-var unicode2ascii = function(str) {
-	return str.
-	replace(/ā|Ā|á|Á|ǎ|Ǎ|à|À/, 'a').
-	replace(/ē|Ē|é|É|ě|Ě|è|È/, 'e').
-	replace(/ī|Ī|í|Í|ǐ|Ǐ|ì|Ì/, 'i').
-	replace(/ō|Ō|ó|Ó|ǒ|Ǒ|ò|Ò/, 'o').
-	replace(/ū|ǖ|Ū|Ǖ|ú|ǘ|Ú|Ǘ|ǔ|ǚ|Ǔ|Ǚ|ù|ǜ|Ù|Ǜ/, 'u');
+var removeInternal = function(struct) {
+	for(key in struct) {
+		if(key.match(/^_/)) {
+			delete struct[key];
+		}
+	}
+	return struct;
 };
 
 router.get('/', function(req, res) {
@@ -22,6 +22,9 @@ router.get('/', function(req, res) {
 	};
 	db.collection('chars').find(query).toArray(function(err, items) {
 		if(err === null) {
+			for(var index=0; index<items.length; index++) {
+				items[index] = removeInternal(items[index]);
+			}
 			res.status(200).json(items);
 		} else {
 			var message = {msg: err};
@@ -49,6 +52,9 @@ router.get('/search', function(req, res) {
 	}
 	db.collection('chars').find(query).toArray(function(err, items) {
 		if(err === null) {
+			for(var index=0; index<items.length; index++) {
+				items[index] = removeInternal(items[index]);
+			}
 			res.status(200).json(items);
 		} else {
 			var message = {msg: err};
@@ -72,6 +78,7 @@ router.get('/random', function(req, res) {
 	};
 	db.collection('chars').findOne(query, function(err, result) {
 		if(err === null && result !== null) {
+			result = removeInternal(result);
 			res.status(200).json(result);
 		} else if(err === null && result === null) {
 			query.$query._random = {$lte: random};
@@ -96,6 +103,7 @@ router.get('/:char', function(req, res) {
 	};
 	db.collection('chars').findOne(query, function(err, result) {
 		if(err === null) {
+			result = removeInternal(result);
 			res.status(200).json(result);
 		} else {
 			var message = {msg: err};
@@ -109,7 +117,6 @@ router.put('/:char', function(req, res) {
 	req.body._date = new Date();
 	req.body._random = Math.random();
 	req.body.char = req.params.char;
-	req.body.latin = unicode2ascii(req.body.pinyin);
 	var query = {
 		char: req.params.char
 	};

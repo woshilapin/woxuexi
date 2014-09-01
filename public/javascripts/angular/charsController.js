@@ -31,6 +31,43 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				callback(next);
 			});
 		};
+		$scope.save = function(char, next) {
+			var uri = 'chars/' + char.char;
+			var getRequest = {
+				method: 'PUT',
+				url: uri,
+				data: char
+			};
+			$http(getRequest).
+			success(function(data, status, header, config) {
+				if(status === 200) {
+					console.log('Character \`' + char.char + "' saved");
+				}
+				callback(next);
+			}).
+			error(function(data, status, header, config) {
+				console.log('Cannot save the character \`' + char.char + "'");
+				callback(next);
+			});
+		};
+		$scope.cancel = function(char, next) {
+			var uri = 'chars/' + char.char;
+			var getRequest = {
+				method: 'GET',
+				url: uri
+			};
+			$http(getRequest).
+			success(function(data, status, header, config) {
+				if(status === 200) {
+					$scope.char = data;
+				}
+				callback(next);
+			}).
+			error(function(data, status, header, config) {
+				console.log('The database does not contain any char \`' + $scope.search + "'");
+				callback(next);
+			});
+		};
 		$scope.selectChar = function(char) {
 			$scope.char = char;
 			$scope.viewMode();
