@@ -7,6 +7,10 @@ block content
 				h1= title
 		.row(data-ng-controller='charsController')
 			#wxx-charlist(data-ng-class='(char!==undefined)?"hidden-xs":""')
+				p.text-right
+					button.btn.btn-primary(data-ng-click='new()')
+						span= 'New character'
+							i.fa.fa-fw.fa-plus
 				input.form-control(type='text',placeholder='search...',data-ng-model='search',data-ng-change='updateCharList()')
 				table.table.table-striped.table-hover
 					thead
@@ -23,31 +27,31 @@ block content
 			#wxx-thechar(data-ng-hide='char===undefined')
 				button#wxx-tolist.visible-xs(data-ng-click='char=undefined')
 					i.fa.fa-list
-				form.form-horizontal
+				form.form-horizontal(name='charForm')
 					#wxx-chardisplay
 						.panel(data-ng-class='"wxx-accent-" + char.accent')
 							.panel-heading.text-center
-								strong.panel-title= '{{ char.pinyin | pinyinFilter:char.accent }}'
+								strong.panel-title(data-ng-class='char.pinyin?"":"text-muted"')= '{{ char.pinyin?(char.pinyin | pinyinFilter:char.accent):"none" }}'
 							.panel-body.text-center
-								p.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char }}'
+								p.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char?char.char:"\u00D8" }}'
 					#wxx-chardetails
 						.form-group
-							label.control-label.col-md-3= 'Character'
+							label.control-label.col-md-3(for='charInput')= 'Character'
 							.col-md-9
 								span.form-control.no-edit.wxx-char(data-ng-class='"wxx-accent-" + char.accent',data-ng-hide='edit.char',data-ng-dblclick='edit.char=true')= '{{ char.char }}'
 								.input-group(data-ng-show='edit.char')
-									input.form-control(data-ng-model='char.char')
-									span.input-group-addon(data-ng-click='edit.char=false;save(char)')
+									input.form-control(name='charInput',data-ng-model='char.char',required,placeholder='ex: 三')
+									span.input-group-addon(data-ng-click='edit.char=false;save(char)',data-ng-show='charForm.charInput.$valid')
 										i.fa.fa-fw.fa-check
 									span.input-group-addon(data-ng-click='edit.pinyin=false;cancel(char)')
 										i.fa.fa-fw.fa-times
 						.form-group
-							label.control-label.col-md-3= 'Pinyin'
+							label.control-label.col-md-3(for='pinyinInput')= 'Pinyin'
 							.col-md-9
 								span.form-control.no-edit(data-ng-hide='edit.pinyin',data-ng-dblclick='edit.pinyin=true')= '{{ char.pinyin | pinyinFilter:char.accent }}'
 								.input-group(data-ng-show='edit.pinyin')
-									input.form-control(data-ng-model='char.pinyin')
-									span.input-group-addon(data-ng-click='edit.pinyin=false;save(char)')
+									input.form-control(name='pinyinInput',data-ng-model='char.pinyin',required,placeholder='ex: san')
+									span.input-group-addon(data-ng-click='edit.pinyin=false;save(char)',data-ng-show='charForm.pinyinInput.$valid')
 										i.fa.fa-fw.fa-check
 									span.input-group-addon(data-ng-click='edit.pinyin=false;cancel(char)')
 										i.fa.fa-fw.fa-times

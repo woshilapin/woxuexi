@@ -31,6 +31,15 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				callback(next);
 			});
 		};
+		$scope.new = function() {
+			$scope.char = {
+				char: '',
+				pinyin: '',
+				accent: 0,
+				translations: {}
+			};
+			$scope.editMode();
+		};
 		$scope.save = function(char, next) {
 			var uri = 'chars/' + char.char;
 			var getRequest = {
