@@ -16,23 +16,23 @@ block content
 					tbody
 						tr(data-ng-repeat='char in chars',data-ng-click='selectChar(char)')
 							td.text-center
-								span.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{char.char}}'
+								span.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char }}'
 							td
-								span.wxx-pinyin= '{{char.pinyin}}'
-								span(data-ng-repeat='translation in char.translations.fr')= ' {{translation}}'
+								span.wxx-pinyin= '{{ char.latin | pinyinFilter:char.accent }}'
+								span(data-ng-repeat='translation in char.translations.fr')= ' {{ translation }}'
 			#wxx-thechar(data-ng-hide='char===undefined')
 				form.form-horizontal
 					#wxx-chardisplay
 						.panel(data-ng-class='"wxx-accent-" + char.accent')
 							.panel-heading.text-center
-								strong.panel-title= '{{char.pinyin}}'
+								strong.panel-title= '{{ char.latin | pinyinFilter:char.accent }}'
 							.panel-body.text-center
-								p.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{char.char}}'
+								p.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char }}'
 					#wxx-chardetails
 						.form-group
 							label.control-label.col-md-3= 'Character'
 							.col-md-9
-								span.form-control.no-edit.wxx-char(data-ng-class='"wxx-accent-" + char.accent',data-ng-hide='edit.char',data-ng-dblclick='edit.char=true')= '{{char.char}}'
+								span.form-control.no-edit.wxx-char(data-ng-class='"wxx-accent-" + char.accent',data-ng-hide='edit.char',data-ng-dblclick='edit.char=true')= '{{ char.char }}'
 								.input-group(data-ng-show='edit.char')
 									input.form-control(data-ng-model='char.char')
 									span.input-group-addon(data-ng-click='edit.char=false')
@@ -42,9 +42,9 @@ block content
 						.form-group
 							label.control-label.col-md-3= 'Pinyin'
 							.col-md-9
-								span.form-control.no-edit(data-ng-hide='edit.pinyin',data-ng-dblclick='edit.pinyin=true')= '{{char.pinyin}}'
+								span.form-control.no-edit(data-ng-hide='edit.pinyin',data-ng-dblclick='edit.pinyin=true')= '{{ char.latin | pinyinFilter:char.accent }}'
 								.input-group(data-ng-show='edit.pinyin')
-									input.form-control(data-ng-model='char.pinyin')
+									input.form-control(data-ng-model='char.latin')
 									span.input-group-addon(data-ng-click='edit.pinyin=false')
 										i.fa.fa-fw.fa-check
 									span.input-group-addon
@@ -52,11 +52,18 @@ block content
 						.form-group
 							label.control-label.col-md-3= 'Accent'
 							.col-md-9
-								span.form-control.no-edit(data-ng-hide='edit.accent',data-ng-dblclick='edit.accent=true')= '{{char.accent | myAccent }}'
+								span.form-control.no-edit(data-ng-hide='edit.accent',data-ng-dblclick='edit.accent=true')= '{{ char.accent | accentFilter }}'
 								.input-group(data-ng-show='edit.accent')
-									.btn-group
-										button.btn(data-ng-repeat='num in [0,1,2,3,4]',data-ng-class='(char.accent===num)?"btn-primary":"btn-default"',data-ng-click='char.accent=num;edit.accent=false')= '{{num | myAccent }}'
+									.btn-toolbar
+										.btn-group
+											button.btn(data-ng-repeat='num in [0,1,2,3,4]',data-ng-class='(char.accent===num)?"btn-primary":"btn-default"',data-ng-click='char.accent=num')
+												strong= '{{ num | accentFilter }}'
+										.btn-group
+											button.btn.btn-default(data-ng-click='edit.accent=false')
+												i.fa.fa-fw.fa-check
+											button.btn.btn-default
+												i.fa.fa-fw.fa-times
 					#wxx-chartranslations
 						label.control-label= 'Translations'
 						ol
-							li(data-ng-repeat='t in char.translations.fr')= '{{t}}'
+							li(data-ng-repeat='t in char.translations.fr')= '{{ t }}'
