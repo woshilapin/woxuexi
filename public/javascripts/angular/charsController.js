@@ -19,7 +19,6 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				method: 'GET',
 				url: uri
 			};
-			console.log(uri);
 			$http(getRequest).
 			success(function(data, status, header, config) {
 				if(status === 200) {
@@ -32,5 +31,52 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				callback(next);
 			});
 		};
+		$scope.selectChar = function(char) {
+			$scope.char = char;
+			$scope.viewMode();
+		}
+		$scope.editMode = function() {
+			$scope.edit = {
+				char: true,
+				pinyin: true,
+				accent: true
+			};
+		};
+		$scope.viewMode = function() {
+			$scope.edit = {
+				char: false,
+				pinyin: false,
+				accent: false
+			};
+		};
 		$scope.updateCharList();
+		$scope.viewMode();
+}]);
+woxuexiApp.filter('myAccent', [function() {
+	return function(text, char) {
+		var out = '';
+		if(char !== undefined) {
+			out += char;
+		} else {
+			out += '\u25CC';
+		}
+		switch(text) {
+		case 1:
+			out += '\u0304';
+			break;
+		case 2:
+			out += '\u0301';
+			break;
+		case 3:
+			out += '\u030C';
+			break;
+		case 4:
+			out += '\u0300';
+			break;
+		case 5:
+			out += '';
+			break;
+		}
+		return out;
+	};
 }]);

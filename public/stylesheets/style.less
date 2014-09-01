@@ -1,32 +1,119 @@
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../bower_components/font-awesome/less/font-awesome.less";
 
-.wxx-char {
-	font-size: 120%;
+body {
+	font-size: 16pt;
 }
 
-.wxx-pinyin {
+#wxx-titlebar {
+	.make-xs-column(12);
+	.make-md-column(6);
+	.make-md-column-offset(2);
+}
+
+#wxx-charlist {
+	font-size: 0.6em;
+	.make-xs-column(12);
+	.make-md-column-offset(2);
+	.make-md-column(2);
+}
+
+#wxx-thechar {
+	.make-xs-column(12);
+	.make-md-column(6);
+}
+
+#wxx-chardisplay {
+	.make-xs-column(12);
+	.make-md-column(3);
+}
+
+#wxx-chardetails {
+	.make-xs-column(12);
+	.make-md-column(9);
+}
+
+#wxx-chartranslations {
+	.make-xs-column(12);
+	.make-md-column(12);
+}
+
+#wxx-charlist .wxx-char {
+	font-size: 1.5em;
+}
+
+#wxx-charlist .wxx-pinyin {
 	color: gray;
 }
-.wxx-pinyin:before {
+#wxx-charlist .wxx-pinyin:before {
 	content: "[";
 }
-.wxx-pinyin:after {
+#wxx-charlist .wxx-pinyin:after {
 	content: "]";
 }
 
 .wxx-accent-0 {
-	color: lighten(gray,20%);
+	.text-muted;
+}
+button.wxx-accent-0 {
+	.btn-default
 }
 .wxx-accent-1 {
-	color: lighten(magenta,20%);
+	.text-warning;
+}
+.panel.wxx-accent-1 {
+	.panel-warning;
+}
+button.wxx-accent-1 {
+	.btn-warning;
 }
 .wxx-accent-2 {
-	color: lighten(blue,20%);
+	.text-info;
+}
+.panel.wxx-accent-2 {
+	.panel-info;
+}
+button.wxx-accent-2 {
+	.btn-info;
 }
 .wxx-accent-3 {
-	color: lighten(red,20%);
+	.text-danger;
+}
+.panel.wxx-accent-3 {
+	.panel-danger;
+}
+button.wxx-accent-3 {
+	.btn-danger;
 }
 .wxx-accent-4 {
-	color: lighten(green,20%);
+	.text-success;
+}
+.panel.wxx-accent-4 {
+	.panel-success;
+}
+button.wxx-accent-4 {
+	.btn-success;
+}
+
+#wxx-chardisplay .wxx-char {
+	font-size: 4em;
+}
+#wxx-chardisplay .panel-title {
+	font-size: 1.25em;
+}
+
+.no-edit {
+	border-style: none;
+	box-shadow: none;
+}
+.no-edit:hover {
+	background-color: #F9F9F9;
+}
+
+.form-control {
+	font-size: 1em;
+}
+
+button.btn {
+	font-size: 1em;
 }
