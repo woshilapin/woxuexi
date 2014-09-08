@@ -8,12 +8,11 @@ var callback = function(next) {
 	}
 }
 
-woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $http) {
-		var cv = undefined;
-		$scope.updateCharList = function(next) {
-			var uri = 'chars';
+woxuexiApp.controller('listwordsController', ['$scope', '$http', function($scope, $http) {
+		$scope.updateWordList = function(next) {
+			var uri = 'words';
 			if($scope.search !== undefined && $scope.search !== '') {
-				uri += '/search?latin=' + $scope.search;
+				uri += '/search?pinyin=' + $scope.search;
 			}
 			var getRequest = {
 				method: 'GET',
@@ -22,7 +21,8 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 			$http(getRequest).
 			success(function(data, status, header, config) {
 				if(status === 200) {
-					$scope.chars = data;
+					console.log(data);
+					$scope.listwords = data;
 				}
 				callback(next);
 			}).
@@ -32,7 +32,7 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 			});
 		};
 		$scope.new = function() {
-			$scope.char = {
+			$scope.theword = {
 				char: '',
 				pinyin: '',
 				accent: 0,
@@ -40,27 +40,27 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 			};
 			$scope.editMode();
 		};
-		$scope.save = function(char, next) {
-			var uri = 'chars/' + char.char;
+		$scope.save = function(theword, next) {
+			var uri = 'words/' + theword.word;
 			var getRequest = {
 				method: 'PUT',
 				url: uri,
-				data: char
+				data: theword
 			};
 			$http(getRequest).
 			success(function(data, status, header, config) {
 				if(status === 200) {
-					console.log('Character \`' + char.char + "' saved");
+					console.log('Character \`' + theword.word + "' saved");
 				}
 				callback(next);
 			}).
 			error(function(data, status, header, config) {
-				console.log('Cannot save the character \`' + char.char + "'");
+				console.log('Cannot save the character \`' + theword.word + "'");
 				callback(next);
 			});
 		};
-		$scope.cancel = function(char, next) {
-			var uri = 'chars/' + char.char;
+		$scope.cancel = function(theword, next) {
+			var uri = 'words/' + theword.word;
 			var getRequest = {
 				method: 'GET',
 				url: uri
@@ -68,7 +68,7 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 			$http(getRequest).
 			success(function(data, status, header, config) {
 				if(status === 200) {
-					$scope.char = data;
+					$scope.theword = data;
 				}
 				callback(next);
 			}).
@@ -77,8 +77,8 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				callback(next);
 			});
 		};
-		$scope.selectChar = function(char) {
-			$scope.char = char;
+		$scope.selectWord = function(word) {
+			$scope.theword = word;
 			$scope.viewMode();
 		}
 		$scope.editMode = function() {
@@ -95,7 +95,7 @@ woxuexiApp.controller('charsController', ['$scope', '$http', function($scope, $h
 				accent: false
 			};
 		};
-		$scope.updateCharList();
+		$scope.updateWordList();
 		$scope.viewMode();
 }]);
 woxuexiApp.filter('accentFilter', [function() {
