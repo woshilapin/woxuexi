@@ -21,7 +21,7 @@ block content
 						tr(data-ng-repeat='theword in listwords',data-ng-click='selectWord(theword)')
 							td
 								span.wxx-charblock(data-ng-repeat='char in theword.chars')
-									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char }}'
+									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char?char.char:"\u25A2" }}'
 									.wxx-pinyin= '{{ char.pinyin | pinyinFilter:char.accent }}'
 							td
 								span(data-ng-repeat='translation in theword.translations.fr')= '{{ ($last)?translation:(translation + "; ") }}'
@@ -33,7 +33,7 @@ block content
 						.panel.panel-default
 							.panel-body.text-center
 								span.wxx-charblock(data-ng-repeat='char in theword.chars',data-ng-click='edit.char=$index')
-									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char }}'
+									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char?char.char:"\u25A2" }}'
 									.wxx-pinyin= '{{ char.pinyin | pinyinFilter:char.accent }}'
 								form(name='charForm')
 									div(data-ng-repeat='thechar in theword.chars',data-ng-show='edit.char===$index')
