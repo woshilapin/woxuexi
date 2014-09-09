@@ -1,6 +1,5 @@
 [
 	{
-		"word":"坐出租车",
 		"chars":[
 			{"char":"坐","accent":4,"pinyin":"zuo"},
 			{"char":"出","accent":1,"pinyin":"chu"},
@@ -13,7 +12,7 @@
 		}
 	},
 	{
-		"word":"我","chars":[
+		"chars":[
 			{"char":"我","accent":3,"pinyin":"wo"}
 		],
 		"translations":{
@@ -22,7 +21,6 @@
 		}
 	},
 	{
-		"word":"你",
 		"chars":[
 			{"char":"你","accent":3,"pinyin":"ni"}
 		],
@@ -32,7 +30,6 @@
 		}
 	},
 	{
-		"word":"他",
 		"chars":[
 			{"char":"他","accent":1,"pinyin":"ta"}
 		],
@@ -42,7 +39,6 @@
 		}
 	},
 	{
-		"word":"一",
 		"chars":[
 			{"char":"一","accent":1,"pinyin":"yi"}
 		],
@@ -52,7 +48,6 @@
 		}
 	},
 	{
-		"word":"二",
 		"chars":[
 			{"char":"二","accent":4,"pinyin":"er"}
 		],
@@ -62,7 +57,7 @@
 		}
 	},
 	{
-		"word":"四","chars":[
+		"chars":[
 			{"char":"四","accent":4,"pinyin":"si"}
 		],
 		"translations":{
@@ -71,7 +66,6 @@
 		}
 	},
 	{
-		"word":"十",
 		"chars":[
 			{"char":"十","accent":2,"pinyin":"shi"}
 		],
@@ -81,7 +75,6 @@
 		}
 	},
 	{
-		"word":"菜",
 		"chars":[
 			{"char":"菜","accent":4,"pinyin":"cai"}
 		],
@@ -91,7 +84,6 @@
 		}
 	},
 	{
-		"word":"一双筷子",
 		"chars":[
 			{"char":"一","accent":1,"pinyin":"yi"},
 			{"char":"双","accent":1,"pinyin":"shuang"},
@@ -104,7 +96,6 @@
 		}
 	},
 	{
-		"word":"洗衣机",
 		"chars":[
 			{"char":"洗","accent":3,"pinyin":"xi"},
 			{"char":"衣","accent":1,"pinyin":"yi"},

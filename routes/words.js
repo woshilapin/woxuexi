@@ -47,9 +47,10 @@ router.put('/', function(req, res) {
 		req.body.forEach(function(word) {
 			word._date = new Date();
 			word._random = Math.random();
-			var query = {
-				word: word.word
-			};
+			var query = {};
+			for(var index=0; index<word.chars.length; index++) {
+				query["chars."+index+".pinyin"] = word.chars[index].pinyin;
+			}
 			db.collection('words').update(query, word, function(err, result) {
 				if(err === null && result === 1) {
 					var message = {msg: ""};
@@ -110,7 +111,6 @@ router.get('/search', function(req, res) {
 	if(req.query.accent !== undefined) {
 		query.$query["chars.accent"] = parseInt(req.query.accent);
 	}
-	console.log(query);
 	db.collection('words').find(query, wordprojection).toArray(function(err, items) {
 		if(err === null) {
 			for(var index=0; index<items.length; index++) {
@@ -158,10 +158,11 @@ router.get('/random', function(req, res) {
 router.get('/:word', function(req, res) {
 	var db = req.db;
 	var query = {
-		$query: {
-			word: req.params.word
-		}
+		$query: {}
 	};
+	for(var index=0; index<req.params.word.length; index++) {
+		query.$query["chars."+index+".char"] = req.params.word[index];
+	}
 	db.collection('words').findOne(query, wordprojection, function(err, result) {
 		if(err === null) {
 			result = result;
@@ -177,9 +178,10 @@ router.put('/:word', function(req, res) {
 	var db = req.db;
 	req.body._date = new Date();
 	req.body._random = Math.random();
-	var query = {
-		word: req.params.word
-	};
+	var query = {};
+	for(var index=0; index<req.params.word.length; index++) {
+		query["chars."+index+".char"] = req.params.word[index];
+	}
 	db.collection('words').update(query, req.body, function(err, result) {
 		if(err === null && result === 1) {
 			var message = {msg: ""};
@@ -206,9 +208,10 @@ router.put('/:word', function(req, res) {
 
 router.delete('/:word', function(req, res) {
 	var db = req.db;
-	var query = {
-		word: req.params.word
-	};
+	var query = {};
+	for(var index=0; index<req.params.word.length; index++) {
+		query["chars."+index+".char"] = req.params.word[index];
+	}
 	db.collection('words').remove(query, function(err, result) {
 		if(result === 1) {
 			var message = {msg: ""};
