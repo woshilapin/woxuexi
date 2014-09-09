@@ -90,7 +90,7 @@ woxuexiApp.controller('listwordsController', ['$scope', '$http', function($scope
 		};
 		$scope.viewMode = function() {
 			$scope.edit = {
-				char: false,
+				char: undefined,
 				pinyin: false,
 				accent: false
 			};
