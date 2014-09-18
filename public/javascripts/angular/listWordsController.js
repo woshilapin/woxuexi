@@ -1,4 +1,4 @@
-angular.module('woxuexiApp').controller('listwordsController', ['$scope', '$http', function($scope, $http) {
+angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http', function($scope, $http) {
 		$scope.updateWordList = function() {
 			var uri = 'words';
 			if($scope.search !== undefined && $scope.search !== '') {
