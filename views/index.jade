@@ -19,7 +19,7 @@ block content
 							th= 'Word'
 							th= 'Translations'
 					tbody
-						tr(data-ng-repeat='theword in listwords',data-ng-click='selectWord(theword)')
+						tr(data-ng-repeat='theword in listofwords',data-ng-click='selectWord(theword)')
 							td
 								span.wxx-charblock(data-ng-repeat='char in theword.chars')
 									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char?char.char:"\u25A2" }}'

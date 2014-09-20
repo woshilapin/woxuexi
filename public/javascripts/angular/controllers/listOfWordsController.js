@@ -1,5 +1,5 @@
 angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
-		$scope.listwords = [];
+		$scope.listofwords = [];
 		$scope.theword = {};
 		$scope.update = function(search) {
 			var searchParams = {
@@ -7,7 +7,7 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 			};
 			restService.getWords(searchParams, function(result, err) {
 				if(err === null) {
-					$scope.listwords = result;
+					$scope.listofwords = result;
 				}
 			});
 		};
@@ -68,7 +68,7 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 		};
 		restService.getWords(function(result, err) {
 			if(err === null) {
-				$scope.listwords = result;
+				$scope.listofwords = result;
 			}
 		});
 		$scope.viewMode();
