@@ -1,22 +1,14 @@
-angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http', function($scope, $http) {
-		$scope.updateWordList = function() {
-			var uri = 'words';
-			if($scope.search !== undefined && $scope.search !== '') {
-				uri += '/search?pinyin=' + $scope.search;
-			}
-			var getRequest = {
-				method: 'GET',
-				url: uri
+angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
+		$scope.listwords = [];
+		$scope.theword = {};
+		$scope.update = function(search) {
+			var searchParams = {
+				pinyin: search
 			};
-			$http(getRequest).
-			success(function(data, status, header, config) {
-				if(status === 200) {
-					console.log(data);
-					$scope.listwords = data;
+			restService.getWords(searchParams, function(result, err) {
+				if(err === null) {
+					$scope.listwords = result;
 				}
-			}).
-			error(function(data, status, header, config) {
-				console.log('The database does not contain any char \`' + $scope.search + "'");
 			});
 		};
 		$scope.new = function() {
@@ -29,7 +21,12 @@ angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http
 			$scope.editMode();
 		};
 		$scope.save = function(theword) {
-			var uri = 'words/' + theword.word;
+			var word = '';
+			for(var index=0; index<theword.chars.length; index++) {
+				var char = theword.chars[index].char;
+				word += char?char:'';
+			}
+			var uri = 'words/' + word;
 			var getRequest = {
 				method: 'PUT',
 				url: uri,
@@ -46,7 +43,12 @@ angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http
 			});
 		};
 		$scope.cancel = function(theword) {
-			var uri = 'words/' + theword.word;
+			var word = '';
+			for(var index=0; index<theword.chars.length; index++) {
+				var char = theword.chars[index].char;
+				word += char?char:'';
+			}
+			var uri = 'words/' + word;
 			var getRequest = {
 				method: 'GET',
 				url: uri
@@ -79,6 +81,10 @@ angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http
 				accent: false
 			};
 		};
-		$scope.updateWordList();
+		restService.getWords(function(result, err) {
+			if(err === null) {
+				$scope.listwords = result;
+			}
+		});
 		$scope.viewMode();
 }]);

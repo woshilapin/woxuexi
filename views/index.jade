@@ -11,7 +11,8 @@ block content
 					button.btn.btn-primary(data-ng-click='new()')
 						span= 'New character'
 							i.fa.fa-fw.fa-plus
-				input.form-control(type='text',placeholder='search...',data-ng-model='search',data-ng-change='updateWordList()')
+				form(name='searchForm')
+					input.form-control(name='searchInput',type='text',placeholder='search...',data-ng-model='search',data-ng-change='update(search)')
 				table
 					thead
 						tr
