@@ -11,6 +11,13 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 				}
 			});
 		};
+		$scope.save = function(word) {
+			restService.saveWord(word, function(err) {
+				if(err !== null) {
+					console.log(err.msg);
+				}
+			});
+		};
 		$scope.new = function() {
 			$scope.theword = {
 				char: '',
@@ -19,28 +26,6 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 				translations: {}
 			};
 			$scope.editMode();
-		};
-		$scope.save = function(theword) {
-			var word = '';
-			for(var index=0; index<theword.chars.length; index++) {
-				var char = theword.chars[index].char;
-				word += char?char:'';
-			}
-			var uri = 'words/' + word;
-			var getRequest = {
-				method: 'PUT',
-				url: uri,
-				data: theword
-			};
-			$http(getRequest).
-			success(function(data, status, header, config) {
-				if(status === 200) {
-					console.log('Character \`' + theword.word + "' saved");
-				}
-			}).
-			error(function(data, status, header, config) {
-				console.log('Cannot save the character \`' + theword.word + "'");
-			});
 		};
 		$scope.cancel = function(theword) {
 			var word = '';
