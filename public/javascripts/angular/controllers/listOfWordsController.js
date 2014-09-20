@@ -1,4 +1,4 @@
-angular.module('woxuexiApp').controller('listWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
+angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
 		$scope.listwords = [];
 		$scope.theword = {};
 		$scope.update = function(search) {

@@ -5,7 +5,7 @@ block content
 		.row
 			#wxx-titlebar
 				h1= title
-		.row(data-ng-controller='listWordsController')
+		.row(data-ng-controller='listOfWordsController')
 			#wxx-wordslist(data-ng-class='(theword!==undefined)?"hidden-xs":""')
 				p.text-right
 					button.btn.btn-primary(data-ng-click='new()')
