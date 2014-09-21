@@ -43,7 +43,7 @@ block content
 								.wxx-char
 									i.fa.fa-fw.fa-plus
 								.wxx-pinyin= 'add'
-							form(name='charForm')
+							form.form-horizontal(name='charForm')
 								div(data-ng-repeat='thechar in theword.chars',data-ng-show='edit.char===$index')
 									.form-group
 										label.control-label.col-xs-12.col-md-3(for='charInput')= 'Character'
