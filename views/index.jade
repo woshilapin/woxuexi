@@ -12,7 +12,7 @@ block content
 						span= 'New character'
 							i.fa.fa-fw.fa-plus
 				form(name='searchForm')
-					input.form-control(name='searchInput',type='text',placeholder='search...',data-ng-model='search',data-ng-change='update(search)')
+					input.form-control(name='searchInput',type='text',placeholder='search...',data-ng-model='searchstring',data-ng-change='search(searchstring)')
 				table
 					thead
 						tr

@@ -7,7 +7,22 @@ angular.module('woxuexiApp').service('restService', ['$http', function($http) {
 			}
 			return word;
 		};
-		this.getWords = function(searchParams, callback) {
+		this.getWords = function(callback) {
+			var uri = 'words';
+			var getRequest = {
+				method: 'GET',
+				url: uri
+			};
+			$http(getRequest).
+			success(function(data, status, header, config) {
+				console.log('List of words downloaded');
+			}).
+			error(function(data, status, header, config) {
+				console.log('The database does not contain any char \`' + searchParams + "'");
+			}).
+			then(callback);
+		};
+		this.searchWords = function(searchParams, callback) {
 			if(searchParams instanceof Function) {
 				callback = searchParams;
 				searchParams = '';

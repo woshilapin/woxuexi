@@ -1,12 +1,17 @@
 angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
 		$scope.listofwords = [];
 		$scope.theword = {};
-		$scope.update = function(search) {
+		$scope.init = function() {
+			restService.getWords(function(response) {
+				$scope.listofwords = response.data;
+			});
+		};
+		$scope.search = function(search) {
 			var searchParams = {};
 			if(search !== undefined) {
 				searchParams['pinyin']= search;
 			}
-			restService.getWords(searchParams, function(response) {
+			restService.searchWords(searchParams, function(response) {
 				$scope.listofwords = response.data;
 			});
 		};
@@ -63,6 +68,6 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 				accent: false
 			};
 		};
-		$scope.update();
+		$scope.init();
 		$scope.viewMode();
 }]);
