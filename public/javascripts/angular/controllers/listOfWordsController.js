@@ -1,6 +1,4 @@
 angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$http', 'restService', function($scope, $http, restService) {
-		$scope.listofwords = [];
-		$scope.theword = {};
 		$scope.init = function() {
 			restService.getWords(function(response) {
 				$scope.listofwords = response.data;
@@ -18,6 +16,7 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 		$scope.save = function(word) {
 			restService.saveWord(word, function(response) {
 				console.log(response.statusText);
+				angular.copy($scope.theword, $scope._theword_original);
 			});
 		};
 		$scope.new = function() {
@@ -30,28 +29,11 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 			$scope.editMode();
 		};
 		$scope.cancel = function(theword) {
-			var word = '';
-			for(var index=0; index<theword.chars.length; index++) {
-				var char = theword.chars[index].char;
-				word += char?char:'';
-			}
-			var uri = 'words/' + word;
-			var getRequest = {
-				method: 'GET',
-				url: uri
-			};
-			$http(getRequest).
-			success(function(data, status, header, config) {
-				if(status === 200) {
-					$scope.theword = data;
-				}
-			}).
-			error(function(data, status, header, config) {
-				console.log('The database does not contain any char \`' + $scope.search + "'");
-			});
+			$scope.theword = angular.copy($scope._theword_original);
 		};
 		$scope.selectWord = function(word) {
-			$scope.theword = word;
+			$scope._theword_original = word;
+			$scope.theword = angular.copy(word);
 			$scope.viewMode();
 		}
 		$scope.editMode = function() {
