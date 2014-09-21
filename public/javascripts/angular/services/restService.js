@@ -62,4 +62,33 @@ angular.module('woxuexiApp').service('restService', ['$http', function($http) {
 			}).
 			then(callback);
 		};
+		this.deleteWord = function(wordStruct, callback) {
+			var word = extractWord(wordStruct);
+			var uri = 'words/' + word;
+			var getRequest = {
+				method: 'DELETE',
+				url: uri
+			};
+			$http(getRequest).
+			success(function(data, status, header, config) {
+				console.log('Character \`' + word + "' deleted");
+			}).
+			error(function(data, status, header, config) {
+				console.log('Cannot delete the character \`' + word + "'");
+			}).
+			then(callback);
+		};
+		this.updateWord = function(oldWordStruct, newWordStruct, callback) {
+			var saveWord = this.saveWord;
+			var deleteWord = this.deleteWord;
+			saveWord(newWordStruct, function(response) {
+				console.log(extractWord(newWordStruct));
+				console.log(extractWord(oldWordStruct));
+				if(response.status === 201 && extractWord(newWordStruct) !== extractWord(oldWordStruct)) {
+					deleteWord(oldWordStruct, callback);
+				} else {
+					callback(response);
+				}
+			});
+		};
 }]);

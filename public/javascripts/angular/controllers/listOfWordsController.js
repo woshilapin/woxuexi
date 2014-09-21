@@ -13,8 +13,8 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 				$scope.listofwords = response.data;
 			});
 		};
-		$scope.save = function(word) {
-			restService.saveWord(word, function(response) {
+		$scope.update = function(word) {
+			restService.updateWord($scope._theword_original, word, function(response) {
 				console.log(response.statusText);
 				angular.copy($scope.theword, $scope._theword_original);
 			});
