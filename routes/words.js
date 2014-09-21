@@ -158,7 +158,11 @@ router.get('/random', function(req, res) {
 router.get('/:word', function(req, res) {
 	var db = req.db;
 	var query = {
-		$query: {}
+		$query: {
+			chars: {
+				$size: req.params.word.length
+			}
+		}
 	};
 	for(var index=0; index<req.params.word.length; index++) {
 		query.$query["chars."+index+".char"] = req.params.word[index];
@@ -178,7 +182,11 @@ router.put('/:word', function(req, res) {
 	var db = req.db;
 	req.body._date = new Date();
 	req.body._random = Math.random();
-	var query = {};
+	var query = {
+		chars: {
+			$size: req.params.word.length
+		}
+	};
 	for(var index=0; index<req.params.word.length; index++) {
 		query["chars."+index+".char"] = req.params.word[index];
 	}
@@ -208,10 +216,15 @@ router.put('/:word', function(req, res) {
 
 router.delete('/:word', function(req, res) {
 	var db = req.db;
-	var query = {};
+	var query = {
+		chars: {
+			$size: req.params.word.length
+		}
+	};
 	for(var index=0; index<req.params.word.length; index++) {
 		query["chars."+index+".char"] = req.params.word[index];
 	}
+	console.log(query);
 	db.collection('words').remove(query, function(err, result) {
 		if(result === 1) {
 			var message = {msg: ""};
