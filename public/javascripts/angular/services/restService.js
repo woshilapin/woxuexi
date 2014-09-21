@@ -23,16 +23,12 @@ angular.module('woxuexiApp').service('restService', ['$http', function($http) {
 			};
 			$http(getRequest).
 			success(function(data, status, header, config) {
-				if(status === 200) {
-					callback(data, null);
-				} else {
-					callback([], {msg: "Service unavailable"});
-				}
+				console.log('List of words downloaded');
 			}).
 			error(function(data, status, header, config) {
 				console.log('The database does not contain any char \`' + searchParams + "'");
-				callback([], {msg: "Service unavailable"});
-			});
+			}).
+			then(callback);
 		};
 		this.saveWord = function(wordStruct, callback) {
 			var word = extractWord(wordStruct);
@@ -44,16 +40,11 @@ angular.module('woxuexiApp').service('restService', ['$http', function($http) {
 			};
 			$http(getRequest).
 			success(function(data, status, header, config) {
-				if(status === 200) {
-					console.log('Character \`' + word + "' saved");
-					callback(null);
-				} else {
-					callback({msg: 'Error during saving process'});
-				}
+				console.log('Character \`' + word + "' saved");
 			}).
 			error(function(data, status, header, config) {
 				console.log('Cannot save the character \`' + word + "'");
-				callback({msg: 'Error during saving process'});
-			});
+			}).
+			then(callback);
 		};
 }]);

@@ -2,20 +2,17 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 		$scope.listofwords = [];
 		$scope.theword = {};
 		$scope.update = function(search) {
-			var searchParams = {
-				pinyin: search
-			};
-			restService.getWords(searchParams, function(result, err) {
-				if(err === null) {
-					$scope.listofwords = result;
-				}
+			var searchParams = {};
+			if(search !== undefined) {
+				searchParams['pinyin']= search;
+			}
+			restService.getWords(searchParams, function(response) {
+				$scope.listofwords = response.data;
 			});
 		};
 		$scope.save = function(word) {
-			restService.saveWord(word, function(err) {
-				if(err !== null) {
-					console.log(err.msg);
-				}
+			restService.saveWord(word, function(response) {
+				console.log(response.statusText);
 			});
 		};
 		$scope.new = function() {
@@ -66,10 +63,6 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 				accent: false
 			};
 		};
-		restService.getWords(function(result, err) {
-			if(err === null) {
-				$scope.listofwords = result;
-			}
-		});
+		$scope.update();
 		$scope.viewMode();
 }]);
