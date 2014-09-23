@@ -14,9 +14,16 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 			});
 		};
 		$scope.update = function(word) {
-			restService.updateWord($scope._theword_original, word, function(response) {
+			restService.updateWord($scope.thewordoriginal, word, function(response) {
 				console.log(response.statusText);
-				angular.copy($scope.theword, $scope._theword_original);
+				angular.copy($scope.theword, $scope.thewordoriginal);
+			});
+		};
+		$scope.delete = function(word) {
+			restService.deleteWord(word, function(response) {
+				console.log(response.statusText);
+				delete $scope.thewordoriginal;
+				$scope.theword = undefined;
 			});
 		};
 		$scope.new = function() {
@@ -29,10 +36,10 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 			$scope.editMode();
 		};
 		$scope.cancel = function(theword) {
-			$scope.theword = angular.copy($scope._theword_original);
+			$scope.theword = angular.copy($scope.thewordoriginal);
 		};
 		$scope.selectWord = function(word) {
-			$scope._theword_original = word;
+			$scope.thewordoriginal = word;
 			$scope.theword = angular.copy(word);
 			$scope.viewMode();
 		}

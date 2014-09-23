@@ -61,12 +61,15 @@ block content
 													button.btn(data-ng-repeat='num in [0,1,2,3,4]',data-ng-class='(thechar.accent===num)?"btn-primary":"btn-default"',data-ng-click='thechar.accent=num')
 															strong= '{{ num | accentFilter }}'
 									.btn-toolbar.text-center(data-ng-click='edit.char=undefined')
-										button.btn.btn-success(data-ng-click='update(theword)')
+										button.btn.btn-default(data-ng-click='update(theword)')
 											i.fa.fa-fw.fa-refresh
 											span= 'Update'
-										button.btn.btn-danger(data-ng-click='cancel(theword)')
-											i.fa.fa-fw.fa-times
+										button.btn.btn-default(data-ng-click='cancel(theword)')
+											i.fa.fa-fw.fa-close
 											span= 'Cancel'
+										button.btn.btn-danger(data-ng-click='delete(theword)')
+											i.fa.fa-fw.fa-trash
+											span= 'Delete'
 				#wxx-wordtranslations
 					label.control-label= 'Translations'
 					ol
