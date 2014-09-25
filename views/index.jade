@@ -10,7 +10,7 @@ block content
 				p.text-right
 					button.btn.btn-primary(data-ng-click='new()')
 						span= 'New character'
-							i.fa.fa-fw.fa-plus
+							span.fa.fa-fw.fa-plus
 				form(name='searchForm')
 					input.form-control(name='searchInput',type='text',placeholder='search...',data-ng-model='searchstring',data-ng-change='search(searchstring)')
 				table
@@ -28,13 +28,13 @@ block content
 								span(data-ng-repeat='translation in theword.translations.fr')= '{{ ($last)?translation:(translation + "; ") }}'
 			#wxx-theword(data-ng-hide='theword===undefined')
 				button#wxx-tolist.visible-xs(data-ng-click='theword=undefined')
-					i.fa.fa-list
+					span.fa.fa-list
 				#wxx-worddisplay
 					.panel.panel-default
 						.panel-body.text-center
 							span.wxx-charblock.wxx-hideblock
 								.wxx-char
-									i.fa.fa-fw.fa-plus
+									span.fa.fa-fw.fa-plus
 								.wxx-pinyin= 'add'
 							span(data-ng-repeat='char in theword.chars')
 								span.wxx-charblock(data-ng-click='edit.char=$index',data-ng-class='(edit.char===$index)?"wxx-charblock-selected":""')
@@ -42,7 +42,7 @@ block content
 									.wxx-pinyin= '{{ char.pinyin?(char.pinyin | pinyinFilter:char.accent):"none" }}'
 							span.wxx-charblock(data-ng-class='(edit.char===undefined)?"wxx-hideblock":"wxx-addblock"',data-ng-click='theword.chars.push({"char":"","accent":0,"pinyin":""})')
 								.wxx-char
-									i.fa.fa-fw.fa-plus
+									span.fa.fa-fw.fa-plus
 								.wxx-pinyin= 'add'
 							form.form-horizontal(name='charForm',data-ng-show='edit.char!==undefined')
 								div(data-ng-repeat='thechar in theword.chars',data-ng-show='edit.char===$index')
@@ -63,13 +63,13 @@ block content
 															strong= '{{ num | accentFilter }}'
 							.btn-toolbar.text-center(data-ng-click='edit.char=undefined',data-ng-show='edit.char!==undefined')
 								button.btn.btn-default(data-ng-click='update(theword)')
-									i.fa.fa-fw.fa-refresh
+									span.fa.fa-fw.fa-refresh
 									span= 'Update'
 								button.btn.btn-default(data-ng-click='cancel(theword)')
-									i.fa.fa-fw.fa-close
+									span.fa.fa-fw.fa-close
 									span= 'Cancel'
 								button.btn.btn-danger(data-ng-click='delete(theword)')
-									i.fa.fa-fw.fa-trash
+									span.fa.fa-fw.fa-trash
 									span= 'Delete'
 				#wxx-wordtranslations
 					label.control-label= 'Translations'
