@@ -14,8 +14,30 @@ body {
 	.make-md-column(4);
 }
 #wxx-worddisplay {
+	@color-selected: #F0F0F0;
 	.make-xs-column(12);
 	.make-md-column(12);
+	form > div {
+		background: @color-selected;
+		border-style: none;
+		border-color: gray;
+		border-width: 1px;
+		padding: 1ex;
+		margin: 1ex;
+		margin-top: 0ex;
+		border-radius: 1ex;
+	}
+	.wxx-chararrow {
+		content: "Hello";
+		.text-center;
+		display: block;
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid @color-selected;
+		margin-bottom: -8px;
+	}
 	.wxx-charblock {
 		.btn;
 		.btn-default;
@@ -24,15 +46,20 @@ body {
 			font-size: 2em;
 		}
 	}
+	.wxx-charblock.wxx-charblock-selected {
+		background: @color-selected;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
 	.wxx-hideblock {
 		visibility: hidden;
 	}
 	.wxx-addblock {
 		.wxx-char {
-			color: #F0F0F0;
+			color: @color-selected;
 		}
 		.wxx-pinyin {
-			color: #F0F0F0;
+			color: @color-selected;
 		}
 	}
 	.wxx-addblock:hover {
