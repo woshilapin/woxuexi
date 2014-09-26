@@ -32,45 +32,36 @@ block content
 				#wxx-worddisplay
 					.panel.panel-default
 						.panel-body.text-center
-							span.wxx-charblock.wxx-hideblock
-								.wxx-char
-									span.fa.fa-fw.fa-plus
-								.wxx-pinyin= 'add'
-							span(data-ng-repeat='char in theword.chars')
-								span.wxx-charblock(data-ng-click='edit.char=$index',data-ng-class='(edit.char===$index)?"wxx-charblock-selected":""')
-									.wxx-char(data-ng-class='"wxx-accent-" + char.accent')= '{{ char.char?char.char:"\u25A2" }}'
-									.wxx-pinyin= '{{ char.pinyin?(char.pinyin | pinyinFilter:char.accent):"none" }}'
-							span.wxx-charblock(data-ng-class='(edit.char===undefined)?"wxx-hideblock":"wxx-addblock"',data-ng-click='theword.chars.push({"char":"","accent":0,"pinyin":""})')
-								.wxx-char
-									span.fa.fa-fw.fa-plus
-								.wxx-pinyin= 'add'
-							form.form-horizontal(name='charForm',data-ng-show='edit.char!==undefined')
-								div(data-ng-repeat='thechar in theword.chars',data-ng-show='edit.char===$index')
+							span.wxx-charblock(data-ng-repeat='thechar in theword.chars',data-ng-click='edit.char=$index',data-ng-class='(edit.char===$index)?"wxx-charblock-selected":""')
+								.wxx-char(data-ng-class='"wxx-accent-" + thechar.accent')= '{{ thechar.char?thechar.char:"\u25A2" }}'
+								.wxx-pinyin= '{{ thechar.pinyin?(thechar.pinyin | pinyinFilter:thechar.accent):"none" }}'
+							form.form-horizontal(data-ng-repeat='thechar in theword.chars',name='charForm',data-ng-show='edit.char!==undefined')
+								div(data-ng-show='edit.char===$index')
 									.form-group
-										label.control-label.col-xs-12.col-md-3(for='charInput')= 'Character'
-										.col-xs-12.col-md-9
+										label.control-label.col-xs-12.col-md-4(for='charInput')= 'Character'
+										.col-xs-12.col-md-8
 											input.form-control(name='charInput',data-ng-model='thechar.char',required,placeholder='ex: 三')
 									.form-group
-										label.control-label.col-xs-12.col-md-3(for='pinyinInput')= 'Pinyin'
-										.col-xs-12.col-md-9
+										label.control-label.col-xs-12.col-md-4(for='pinyinInput')= 'Pinyin'
+										.col-xs-12.col-md-8
 											input.form-control(name='pinyinInput',data-ng-model='thechar.pinyin',required,placeholder='ex: san')
 									.form-group
-										label.control-label.col-xs-12.col-md-3= 'Accent'
-										.col-xs-12.col-md-9
+										label.control-label.col-xs-12.col-md-4= 'Accent'
+										.col-xs-12.col-md-8
 											.btn-toolbar
 												.btn-group
 													button.btn(data-ng-repeat='num in [0,1,2,3,4]',data-ng-class='(thechar.accent===num)?"btn-primary":"btn-default"',data-ng-click='thechar.accent=num')
 															strong= '{{ num | accentFilter }}'
 							.btn-toolbar.text-center(data-ng-click='edit.char=undefined',data-ng-show='edit.char!==undefined')
 								button.btn.btn-default(data-ng-click='update(theword)')
-									span.fa.fa-fw.fa-refresh
-									span= 'Update'
+									span.fa.fa-fw.fa-save
+									span.hidden-xs= 'Update'
 								button.btn.btn-default(data-ng-click='cancel(theword)')
-									span.fa.fa-fw.fa-close
-									span= 'Cancel'
+									span.fa.fa-fw.fa-undo
+									span.hidden-xs= 'Cancel'
 								button.btn.btn-danger(data-ng-click='delete(theword)')
 									span.fa.fa-fw.fa-trash
-									span= 'Delete'
+									span.hidden-xs= 'Delete'
 				#wxx-wordtranslations
 					label.control-label= 'Translations'
 					ol
