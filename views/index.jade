@@ -38,6 +38,17 @@ block content
 							form.form-horizontal(data-ng-repeat='thechar in theword.chars',name='charForm',data-ng-show='edit.char!==undefined')
 								div(data-ng-show='edit.char===$index')
 									.form-group
+										.btn-group
+											button.btn.btn-default(data-ng-click='add($index)')
+												span.fa.fa-fw.fa-chevron-left
+												span.hidden-xs= 'Add'
+											button.btn.btn-danger(data-ng-show='theword.chars.length>1',data-ng-click='delete($index)')
+												span.hidden-xs= 'Delete'
+												span.fa.fa-fw.fa-trash
+											button.btn.btn-default(data-ng-click='add($index+1)')
+												span.hidden-xs= 'Add'
+												span.fa.fa-fw.fa-chevron-right
+									.form-group
 										label.control-label.col-xs-12.col-md-4(for='charInput')= 'Character'
 										.col-xs-12.col-md-8
 											input.form-control(name='charInput',data-ng-model='thechar.char',required,placeholder='ex: 三')

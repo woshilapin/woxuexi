@@ -37,13 +37,16 @@ angular.module('woxuexiApp').controller('listOfWordsController', ['$scope', '$ht
 		};
 		$scope.add = function(index) {
 			$scope.theword.chars.splice(index, 0, {});
+			$scope.edit.char = index;
 		};
 		$scope.delete = function(index) {
 			$scope.theword.chars.splice(index, 1);
+			if(index === $scope.theword.chars.length) {
+				$scope.edit.char = index - 1;
+			}
 		};
 		$scope.cancel = function(theword) {
 			$scope.theword = angular.copy($scope.thewordoriginal);
-			$scope.edit.char = undefined;
 		};
 		$scope.selectWord = function(word) {
 			$scope.thewordoriginal = word;
