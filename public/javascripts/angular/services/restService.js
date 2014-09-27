@@ -82,9 +82,7 @@ angular.module('woxuexiApp').service('restService', ['$http', function($http) {
 			var saveWord = this.saveWord;
 			var deleteWord = this.deleteWord;
 			saveWord(newWordStruct, function(response) {
-				console.log(extractWord(newWordStruct));
-				console.log(extractWord(oldWordStruct));
-				if(response.status === 201 && extractWord(newWordStruct) !== extractWord(oldWordStruct)) {
+				if(response.status === 201 && oldWordStruct !== undefined && extractWord(newWordStruct) !== extractWord(oldWordStruct)) {
 					deleteWord(oldWordStruct, callback);
 				} else {
 					callback(response);

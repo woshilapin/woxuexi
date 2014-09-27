@@ -7,10 +7,6 @@ block content
 				h1= title
 		.row(data-ng-controller='listOfWordsController')
 			#wxx-wordslist(data-ng-class='(theword!==undefined)?"hidden-xs":""')
-				p.text-right
-					button.btn.btn-primary(data-ng-click='new()')
-						span= 'New character'
-							span.fa.fa-fw.fa-plus
 				form(name='searchForm')
 					input.form-control(name='searchInput',type='text',placeholder='search...',data-ng-model='searchstring',data-ng-change='search(searchstring)')
 				table
@@ -26,17 +22,21 @@ block content
 									.wxx-pinyin= '{{ char.pinyin | pinyinFilter:char.accent }}'
 							td
 								span(data-ng-repeat='translation in theword.translations.fr')= '{{ ($last)?translation:(translation + "; ") }}'
-			#wxx-theword(data-ng-hide='theword===undefined')
+			#wxx-theword(data-ng-controller='wordController')
 				button#wxx-tolist.visible-xs(data-ng-click='theword=undefined')
 					span.fa.fa-list
-				#wxx-worddisplay
+				p.text-left
+					button.btn.btn-primary(data-ng-click='new()')
+						span= 'New character'
+							span.fa.fa-fw.fa-plus
+				#wxx-worddisplay(data-ng-hide='theword===undefined')
 					.panel.panel-default
 						.panel-body.text-center
-							span.wxx-charblock(data-ng-repeat='thechar in theword.chars',data-ng-click='edit.char=$index',data-ng-class='(edit.char===$index)?"wxx-charblock-selected":""')
+							span.wxx-charblock(data-ng-repeat='thechar in theword.chars',data-ng-click='edit($index)',data-ng-class='(isEdit($index))?"wxx-charblock-selected":""')
 								.wxx-char(data-ng-class='"wxx-accent-" + thechar.accent')= '{{ thechar.char?thechar.char:"\u25A2" }}'
 								.wxx-pinyin= '{{ thechar.pinyin?(thechar.pinyin | pinyinFilter:thechar.accent):"none" }}'
-							form.form-horizontal(data-ng-repeat='thechar in theword.chars',name='charForm',data-ng-show='edit.char!==undefined')
-								div(data-ng-show='edit.char===$index')
+							form.form-horizontal(data-ng-repeat='thechar in theword.chars',name='charForm',data-ng-show='isEdit()')
+								div(data-ng-show='isEdit($index)')
 									.form-group
 										.btn-group
 											button.btn.btn-default(data-ng-click='add($index)')
@@ -63,7 +63,7 @@ block content
 												.btn-group
 													button.btn(data-ng-repeat='num in [0,1,2,3,4]',data-ng-class='(thechar.accent===num)?"btn-primary":"btn-default"',data-ng-click='thechar.accent=num')
 															strong= '{{ num | accentFilter }}'
-							.btn-toolbar.text-center(data-ng-click='edit.char=undefined',data-ng-show='edit.char!==undefined')
+							.btn-toolbar.text-center(data-ng-click='edit(undefined)',data-ng-show='isEdit()')
 								button.btn.btn-default(data-ng-click='update(theword)')
 									span.fa.fa-fw.fa-save
 									span.hidden-xs= 'Update'
@@ -73,7 +73,7 @@ block content
 								button.btn.btn-danger(data-ng-click='delete(theword)')
 									span.fa.fa-fw.fa-trash
 									span.hidden-xs= 'Delete'
-				#wxx-wordtranslations
-					label.control-label= 'Translations'
-					ol
-						li(data-ng-repeat='t in theword.translations.fr')= '{{ t }}'
+					#wxx-wordtranslations
+						label.control-label= 'Translations'
+						ol
+							li(data-ng-repeat='t in theword.translations.fr')= '{{ t }}'
