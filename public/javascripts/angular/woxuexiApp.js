@@ -1,1 +1,1 @@
-var woxuexiApp = angular.module('woxuexiApp', []);
+var woxuexiApp = angular.module('woxuexiApp', ['ngAnimate']);
