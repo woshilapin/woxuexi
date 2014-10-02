@@ -1,0 +1,20 @@
+{
+  "name": "woxuexi",
+  "description": "A web application to learn chinese",
+  "version": "0.0.1",
+  "developer": {
+      "name": "woshilapin",
+      "url": "https://github.com/woshilapin/woxuexi"
+  },
+  "icons":{
+      "60": "/style/icons/apple-touch-icon-precomposed.png",
+      "128": "/style/icons/icon128.png"
+  },
+  "launch_path": "/index.html",
+  "installs_allowed_from": ["*"],
+  "manifest_version": 2,
+  "app": {
+    "background": {"scripts": ["js/background.js"]}
+  },
+  "offline_enabled": false
+}

@@ -45,7 +45,7 @@
 
   // mime
   express.static.mime.define(
-    {'application/x-web-app-manifest+json': ['webapp']});
+      {'application/x-web-app-manifest+json': ['webapp']});
   express.static.mime.define({'text/cache-manifest': ['appcache']});
   express.static.mime.define({'image/x-icon': ['ico']});
   // express.static.mime.define({'audio/ogg': ['ogg']});
@@ -62,12 +62,12 @@
 
   // Handle 404
   /*app.use(function(req, res) {
-     res.send('404: Page not Found', 404);
-  });
+    res.send('404: Page not Found', 404);
+    });
 
   // Handle 500
   app.use(function(error, req, res, next) {
-     res.send('500: Internal Server Error', 500);
+  res.send('500: Internal Server Error', 500);
   });*/
 
   // error, enable for debugging
@@ -84,7 +84,7 @@
   var terminator = function(sig) {
     if (typeof sig === 'string') {
       console.log('%s: Received %s - terminating sample app ...',
-        Date(Date.now()), sig);
+          Date(Date.now()), sig);
       process.exit(1);
     }
     console.log('%s: Node server stopped.', Date(Date.now()));
